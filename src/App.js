@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import DetailForm from './components/DetailForm';
+import About from './components/About';
 import Pres from './components/Pres';
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route element={<DetailForm/>} path={"/"}/>
+          <Route element={<About/>} path={"/"}/>
           <Route element={<Pres/>} path={"/pres"}/>
         </Routes>
       </Router>
