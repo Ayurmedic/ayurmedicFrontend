@@ -15,6 +15,16 @@ export default function Form(props) {
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     const [selectedValue, setSelectedValue] = useState('Symptoms');
+    const[result,setResult]=useState({
+            "Medicine Name": "Loading",
+            "Main Ingredients": "Loading",
+            "Commonly Used for Diseases": "Loading",
+            "Alternate Allopathic Drug Name": "Loading",
+            "Home Remedies": "Loading",
+            "Dosage": "Loading",
+            "Diet Chart": "Loading",
+            "Yoga Names": "Loading"
+    });
 
     const handleClose = () => {
         props.setOpen(false);
@@ -54,11 +64,14 @@ export default function Form(props) {
         else{
             const fetchSymptom=async()=>{
                 var body = {"Symptoms":selectedValue}
-                var result=await axios.post("https://ayurmedic.onrender.com/", body)
-                console.log(result.data)
+                var data=await axios.post("https://ayurmedic.onrender.com/", body)
+                console.log(data.data);
+                setResult(data.data);
+                props.setOpen(false);
             }
-            fetchSymptom();
+            fetchSymptom();        
         }
+       
 
         
     }
