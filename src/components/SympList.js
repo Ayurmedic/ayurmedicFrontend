@@ -1,4 +1,4 @@
-var symp=['Memory Enhancement', 'Cognitive Function', 'Joint Pain',
+var symp=['Symptoms','Memory Enhancement', 'Cognitive Function', 'Joint Pain',
 'Inflammation', 'Digestive Aid', 'Hair Health', 'Digestive Health',
 'Immunity', 'Hormonal Balance', 'Reproductive Health',
 'Detoxification', 'Hair Loss', 'Scalp Health', 'Heart Health',
