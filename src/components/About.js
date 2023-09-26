@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Form from "./Form";
+import Pres from "./Pres";
 
 export default function About() {
     const [open, setOpen] = useState(false);
+    const [prescription,setprescription]=useState(false);
+    const [data,setData]=useState([]);
 
     return (
         <div className="body1">
+            {!prescription &&<>
             <header>
                 <ul className="nav-bar1">
                     <li className="nav1">Home</li>
@@ -19,7 +23,7 @@ export default function About() {
                         <h1>AYURMEDIC</h1>
                         <p>Unpacking Ayurveda is a New Luxury.</p>
                         <button className="start1" onClick={()=>setOpen(true)}> Get Started </button>
-                        <Form open={open} setOpen={setOpen}/>
+                        <Form open={open} setOpen={setOpen} data={data} setData={setData} setprescription={setprescription}/>
                 </div>
                 <div className="header-image1">
                     <img src="banner-2.jpg" alt=""/>
@@ -38,7 +42,7 @@ export default function About() {
                         </div>
                         <img src="medical-checkup.png" alt=""/>
                     </button>
-                    <Form open={open} setOpen={setOpen}/>
+                    <Form open={open} setOpen={setOpen} data={data} setData={setData} setprescription={setprescription}/>
                     <div className="section-1-item">
                         <div className="items-details">
                             <p>Consult a specialist</p>
@@ -69,7 +73,7 @@ export default function About() {
 
             <section className="ayurvedic-herbs1">
                 <div className="ayurvedic-herbs-image1">
-                    <img src="tea.png" alt="Ayurvedic Herbs Image"/>
+                    <img src="tea.png" alt="Ayurvedic Herbs"/>
                 </div>
                 <div className="ayurvedic-herbs-info1">
                     <h2>Ayurvedic Herbs</h2>
@@ -85,13 +89,13 @@ export default function About() {
                     <a href="diet_plans.html" className="cta-button">Explore Diet Plans</a>
                 </div>
                 <div className="diet-chart-image1">
-                    <img src="diet.png" alt="Diet Chart Image"/>
+                    <img src="diet.png" alt="Diet Chart"/>
                 </div>
             </section>
 
             <section className="yoga-exercise1">
                 <div className="yoga-exercise-image1">
-                    <img src="yoga-pose.png" alt="Yoga Exercise Image"/>
+                    <img src="yoga-pose.png" alt="Yoga Exercise"/>
                 </div>
                 <div className="yoga-exercise-info1">
                     <h2>Yoga for Well-being</h2>
@@ -107,7 +111,7 @@ export default function About() {
                     <a href="diet_plans.html" className="cta-button">Explore remedies</a>
                 </div>
                 <div className="diet-chart-image1">
-                    <img src="homeopathy.png" alt="Diet Chart Image"/>
+                    <img src="homeopathy.png" alt="Diet Chart"/>
                 </div>
             </section>
                 
@@ -138,6 +142,8 @@ export default function About() {
                     </div>
                 </div>
             </footer>
+            </>}
+            {prescription && <Pres data={data}/>}
         </div>
     )
 }

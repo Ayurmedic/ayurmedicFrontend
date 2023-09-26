@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { useState } from 'react';
 import { TextField, Button, Grid, IconButton, FormControl } from "@mui/material";
 import { FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
@@ -5,6 +6,8 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, Autocomplete } from 
 import { Close } from "@mui/icons-material";
 import symp from "./SympList";
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addData } from '../redux/data';
 
 export default function Form(props) {
     const [name, setName] = useState('');
@@ -15,17 +18,8 @@ export default function Form(props) {
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     const [selectedValue, setSelectedValue] = useState('Symptoms');
-    const[result,setResult]=useState({
-            "Medicine Name": "Loading",
-            "Main Ingredients": "Loading",
-            "Commonly Used for Diseases": "Loading",
-            "Alternate Allopathic Drug Name": "Loading",
-            "Home Remedies": "Loading",
-            "Dosage": "Loading",
-            "Diet Chart": "Loading",
-            "Yoga Names": "Loading"
-    });
 
+    const dispatch = useDispatch();
     const handleClose = () => {
         props.setOpen(false);
     }
@@ -34,46 +28,55 @@ export default function Form(props) {
         console.log(newValue);
     };
 
-    const handleSubmit=()=>{
-        if(name==''){
+    const handleSubmit = () => {
+        if (name == '') {
             alert("Name is Required");
         }
-        else if(emailAddress==''){
+        else if (emailAddress == '') {
             alert("Email is Required");
         }
-        else if(mobileNumber==''){
+        else if (mobileNumber == '') {
             alert("Mobile Number is Required");
-            
-        }
-        else if(age==''){
-            alert("Age is Required");
-            
-        }else if(dob==''){
-            alert("DOB is Required");
-            
-        }else if(height==''){
-            alert("Height is Required");
-            
-        }else if(weight==''){
-            alert("Weight is Required");
-            
-        }else if(selectedValue=='Symptoms'){
-            alert("Symptom is Required");
-            
-        }
-        else{
-            const fetchSymptom=async()=>{
-                var body = {"Symptoms":selectedValue}
-                var data=await axios.post("https://ayurmedic.onrender.com/", body)
-                console.log(data.data);
-                setResult(data.data);
-                props.setOpen(false);
-            }
-            fetchSymptom();        
-        }
-       
 
-        
+        }
+        else if (age == '') {
+            alert("Age is Required");
+
+        } else if (dob == '') {
+            alert("DOB is Required");
+
+        } else if (height == '') {
+            alert("Height is Required");
+
+        } else if (weight == '') {
+            alert("Weight is Required");
+
+        } else if (selectedValue == 'Symptoms') {
+            alert("Symptom is Required");
+
+        }
+        else {
+            const fetchSymptom = async () => {
+                var body = { "Symptoms": selectedValue }
+                var data = await axios.post("https://ayurmedic.onrender.com/", body)
+                dispatch(addData({
+                    Data: {
+                        Name: name,
+                        Email: emailAddress,
+                        Mobile: mobileNumber,
+                        Age: age,
+                        Dob: dob,
+                        Height: height,
+                        Weight: weight,
+                        Result: data.data
+                    }
+                }))
+                console.log(props.data);
+                props.setOpen(false);
+                props.setprescription(true);
+            }
+            fetchSymptom();
+        }
     }
 
     return (
@@ -88,19 +91,9 @@ export default function Form(props) {
                 width: '40%',
             }}
         >
-            {/* <Button variant="outlined" onClick={handleClickOpen}>
-                Get Started
-            </Button> */}
-            {/* <select>Symptoms
-                {symp.map((i) => {
-                    return (
-                        <option value={i}>{i}</option>
-                    )
-                })}
-            </select> */}
             <DialogTitle id="alert-dialog-title">
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <div className={{ fontFamily: "Poppins", fontSize: "18px", fontWeight: "bold" }}>Patient Details</div>
+                    <div style={{ marginBottom: '5px' }} className={{ fontFamily: "Poppins", fontSize: "18px", fontWeight: "bold" }}>Patient Details</div>
                     <div onClick={handleClose} style={{ cursor: "pointer" }}><IconButton><Close /></IconButton></div>
                 </div>
             </DialogTitle>
