@@ -1,0 +1,15 @@
+.prescription2{
+	background: black;
+	color: white;
+}
+.container2{
+	background: lightgrey;
+	color: black;
+}
+.row{
+	
+	height: 50px;
+}
+.col-6,.col-3,.col-4{
+	border: 1px solid black;
+}
